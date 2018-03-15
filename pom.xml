@@ -21,13 +21,12 @@
     <outputDirectory>${project.build.directory}</outputDirectory>
     <resources>
       <resource>
-        <directory>res</directory>
+        <directory>${project.basedir}</directory>
         <includes>
           <include>*.txt</include>
         </includes>
       </resource>
     </resources>
-
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
