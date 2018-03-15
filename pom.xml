@@ -19,14 +19,15 @@
   <version>1.0-SNAPSHOT</version>
   <build>
     <outputDirectory>${project.build.directory}</outputDirectory>
-    <!--<resources>-->
-      <!--<resource>-->
-        <!--<directory>${project.basedir}</directory>-->
-        <!--<includes>-->
-          <!--<include>db.db</include>-->
-        <!--</includes>-->
-      <!--</resource>-->
-    <!--</resources>-->
+    <resources>
+      <resource>
+        <directory>res</directory>
+        <includes>
+          <include>*.txt</include>
+        </includes>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -55,7 +56,7 @@
           <archive>
             <manifest>
               <addClasspath>true</addClasspath>
-              <mainClass>App</mainClass>
+              <mainClass>com.jarq.App</mainClass>
             </manifest>
           </archive>
         </configuration>
