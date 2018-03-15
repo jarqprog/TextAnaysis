@@ -24,12 +24,22 @@ public class FileContent implements IterableText<String> {
 
     @Override
     public Iterator<String> charIterator() {
-        return new CharIterator(this);
+        try {
+            return new CharIterator(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override
     public Iterator<String> wordIterator() {
-        return new WordIterator(this);
+        try {
+            return new WordIterator(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public String getFilename() {

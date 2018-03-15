@@ -4,14 +4,15 @@ import com.jarq.FileContent;
 
 import java.io.*;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public abstract class StringIterator implements Iterator<String> {
-    
+
     private String data;
+    private BufferedReader bufferedReader;
 
     public StringIterator(FileContent fileContent) throws IOException {
         FileReader fileReader = null;
-        BufferedReader bufferedReader = null;
         try {
             fileReader = new FileReader(new File(fileContent.getFilename()));
             bufferedReader = new BufferedReader(fileReader);
@@ -30,12 +31,26 @@ public abstract class StringIterator implements Iterator<String> {
 
     @Override
     public boolean hasNext() {
-        return false;
+        return data != null;
     }
 
     @Override
-    public String next() {
-        return null;
+    public String next() throws NoSuchElementException {
+        String output = data;
+        try {
+            if(data == null) {
+                throw new NoSuchElementException("Next line is not available");
+            } else {
+                data = bufferedReader.readLine();
+                if(data == null) {
+                    closeReader(bufferedReader);
+                }
+            }
+        }
+        catch(Exception ex) {
+            throw new NoSuchElementException("Problem occurred while getting next element");
+        }
+        return output;
     }
 
     protected String getData() {
@@ -48,8 +63,6 @@ public abstract class StringIterator implements Iterator<String> {
                 reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
-            } finally {
-                reader = null;
             }
         }
     }
