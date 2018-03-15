@@ -16,10 +16,10 @@ public class FileContent implements IterableText<String> {
     }
 
     private FileContent(File file) throws IOException {
-        if( ! file.exists() )
-            throw new FileNotFoundException( "File doesn't exist: " + file.getPath() );
-        if( ! file.isFile() )
-            throw new IOException( "File is not of type 'file': " + file.getPath() );
+        if(!file.exists())
+            throw new FileNotFoundException("File doesn't exist: " + file.getPath());
+        if(!file.isFile())
+            throw new IOException("Given file is not of type 'file': " + file.getPath());
     }
 
     @Override
