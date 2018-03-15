@@ -47,8 +47,6 @@ public abstract class StringIterator implements Iterator<String> {
             data = sb.toString();
         } catch (IOException e) {
             data = null;
-            closeReader(bufferedReader);
-            closeReader(fileReader);
             throw e;
         } finally {
             closeReader(bufferedReader);
