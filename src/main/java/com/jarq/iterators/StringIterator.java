@@ -1,6 +1,6 @@
 package com.jarq.iterators;
 
-import com.jarq.FileContent;
+import com.jarq.model.FileContent;
 
 import java.io.*;
 import java.util.Iterator;
@@ -45,14 +45,24 @@ public abstract class StringIterator implements Iterator<String> {
                 }
             }
             data = sb.toString();
+            removeNonLetterElementsFromEndOfDataCollection();
+
         } catch (IOException e) {
             data = null;
-            closeReader(bufferedReader);
-            closeReader(fileReader);
             throw e;
         } finally {
             closeReader(bufferedReader);
             closeReader(fileReader);
+        }
+    }
+
+    private void removeNonLetterElementsFromEndOfDataCollection() {
+        String ONLY_LETTERS_REGEX = "[a-zA-Z]";
+        for(int i=data.length()-1; i >=0; i--) {
+            if(String.valueOf(data.charAt(i)).matches(ONLY_LETTERS_REGEX)) {
+                break;
+            }
+            data = data.substring(0, i);
         }
     }
 }

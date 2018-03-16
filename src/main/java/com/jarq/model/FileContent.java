@@ -1,4 +1,4 @@
-package com.jarq;
+package com.jarq.model;
 
 import com.jarq.iterators.CharIterator;
 import com.jarq.iterators.WordIterator;
@@ -20,6 +20,8 @@ public class FileContent implements IterableText<String> {
             throw new FileNotFoundException("File doesn't exist: " + file.getPath());
         if(!file.isFile())
             throw new IOException("Given file is not of type 'file': " + file.getPath());
+        if(file.length() == 0)
+            throw new IOException("Given file empty: " + file.getPath());
     }
 
     @Override
@@ -28,6 +30,7 @@ public class FileContent implements IterableText<String> {
             return new CharIterator(this);
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
             return null;
         }
     }
@@ -38,6 +41,7 @@ public class FileContent implements IterableText<String> {
             return new WordIterator(this);
         } catch (IOException e) {
             e.printStackTrace();
+            System.exit(1);
             return null;
         }
     }

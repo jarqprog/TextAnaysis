@@ -1,4 +1,4 @@
-package com.jarq;
+package com.jarq.model;
 
 import java.util.Iterator;
 

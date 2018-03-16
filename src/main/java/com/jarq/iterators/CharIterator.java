@@ -1,15 +1,13 @@
 package com.jarq.iterators;
 
-import com.jarq.FileContent;
+import com.jarq.model.FileContent;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 
 public class CharIterator extends StringIterator {
 
     private Integer index;
+    private final String ONLY_LETTERS_REGEX = "[a-zA-Z]";
 
     public CharIterator(FileContent fileContent) throws IOException {
         super(fileContent);
@@ -23,14 +21,11 @@ public class CharIterator extends StringIterator {
 
     @Override
     public String next() {
-        String characterMatcher = "[a-zA-Z]";
-        String character = "";
-        Pattern regex = Pattern.compile(characterMatcher);
+        String character = null;
         while(hasNext()) {
-            character = String.valueOf(getData().charAt(index));
-            Matcher matcher = regex.matcher(character);
+            character = (String.valueOf(getData().charAt(index)));
             index++;
-            if (matcher.find()) {
+            if (character.matches(ONLY_LETTERS_REGEX)) {
                 break;
             }
         }
