@@ -17,17 +17,25 @@ public class Root {
     public void runApp() {
         Long startTime = System.currentTimeMillis();
 
+        performAnalyze();  // with default settings
+        CharAnalysisController.setLettersToCalculateOccurrenceRatio(new String[]{"i", "o"});
+        WordAnalysisController.setMinimalWordOccurrenceThreshold(4);
+        WordAnalysisController.setWordsToCalculateOccurrence(new String[]{"drink", "rock", "sex"});
+        performAnalyze();  // new settings
+        Double millisecondToSecondModifier = 0.001;
+        Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
+        showSeparator();
+        View.print("Benchmark time: " + benchmark + " secs");
+        showSeparator();
+    }
+
+    private void performAnalyze() {
         for(String filename : filenames) {
             showSeparator();
             showFileInfo(filename);
             CharAnalysisController.getInstance(filename).runAnalyze();
             WordAnalysisController.getInstance(filename).runAnalyze();
         }
-        Double millisecondToSecondModifier = 0.001;
-        Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
-        showSeparator();
-        View.print("Benchmark time: " + benchmark + " secs");
-        showSeparator();
     }
 
     private void showFileInfo(String filename) {

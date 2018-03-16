@@ -2,7 +2,7 @@ package com.jarq.enums;
 
 public enum RegExpression {
 
-    ONLY_LETTER("[a-zA-Z]");
+    ONLY_LETTER("[a-zA-Z]"), ALL_LETTERS("[a-zA-Z]+");
 
     private String regex;
 

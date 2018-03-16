@@ -1,11 +1,14 @@
 package com.jarq.controllers;
 
+import com.jarq.enums.RegExpression;
 import com.jarq.model.StatisticalAnalysis;
 import com.jarq.view.View;
 
 import java.util.Map;
 
 public class CharAnalysisController extends AnalysisController {
+
+    private static String[] lettersToCalculateOccurrenceRatio = {"a", "e"};
 
     private StatisticalAnalysis analysis;
 
@@ -33,8 +36,8 @@ public class CharAnalysisController extends AnalysisController {
     }
 
     private void showRatioOfLettersOccurrence() {
-        String first = "a";
-        String second = "e";
+        String first = lettersToCalculateOccurrenceRatio[0];
+        String second = lettersToCalculateOccurrenceRatio[1];
 
         Float ratio = ((float) analysis.countOf(first) / (float) analysis.countOf(second));
         View.print(String.format("%s:%s count ratio: %.2f", first, second, ratio));
@@ -72,5 +75,17 @@ public class CharAnalysisController extends AnalysisController {
 
     private void showElementsQuantity() {
         View.print("Char count: " + analysis.size());
+    }
+
+    public static void setLettersToCalculateOccurrenceRatio(String[] letters) {
+        if(letters.length != 2) {
+            throw new IllegalArgumentException("only two elements required");
+        }
+        for(String letter : letters) {
+            if(! letter.matches(RegExpression.ONLY_LETTER.getRegex())) {
+                throw new IllegalArgumentException("letters must contain letters only!");
+            }
+        }
+        lettersToCalculateOccurrenceRatio = letters;
     }
 }
