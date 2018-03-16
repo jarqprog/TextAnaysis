@@ -11,12 +11,15 @@ import java.util.Map;
 
 public class Application {
     public static void main( String[] args ) {
-        Long start = System.currentTimeMillis();
+
+        Long startTime = System.currentTimeMillis();
 
         for(String filename : args) {
             analyzeTextFromFile(filename);
         }
-        Double benchmark = ((System.currentTimeMillis() - start)*0.001);
+
+        Double millisecondToSecondModifier = 0.001;
+        Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
         View.print("Benchmark time: " + benchmark + " secs");
     }
 
@@ -30,7 +33,7 @@ public class Application {
             System.exit(1);
         }
 
-        View.print(String.format("\n\nAnalyze data from file: %s", filename));
+        View.print(String.format("\n\nAnalyze data from file:\n\t-'%s'", filename));
         View.print("----------------------------------------------");
         Iterator<String> charIterator = fileContent.charIterator();
         Iterator<String> wordIterator = fileContent.wordIterator();
@@ -74,8 +77,7 @@ public class Application {
             throw new IllegalArgumentException("You should use analysis with CharIterator!");
         }
         String[] vowels = {"a", "o", "i", "e", "u", "A", "O", "I", "E", "U"};
-        Integer size = analyser.dictionarySize();
-        Float percentage = (float) analyser.countOf(vowels) / (float) size;
+        Float percentage = ((float) analyser.countOf(vowels) / (float) analyser.size()) * 100f;
         String toDisplay = String.format("vowels (percentage): %.2f", percentage);
         View.print(toDisplay);
     }
@@ -90,8 +92,8 @@ public class Application {
         int elementsInLine = 5;
         for(Map.Entry<String,Integer> pair : lettersOccurrences.entrySet()) {
             String letter = pair.getKey();
-            Float percentageOccurrence = (float) pair.getValue() / (float) analyser.dictionarySize();
-            sb.append(String.format("[%s -> %.2f] ", letter, percentageOccurrence));
+            Float percentageOccurrence = ((float) pair.getValue() / (float) analyser.size())*100f;
+            sb.append(String.format("[%s ->%5.2f] ", letter, percentageOccurrence));
             if(counter % elementsInLine == 0) {
                 sb.append("\n");
             }
