@@ -1,5 +1,6 @@
 package com.jarq.iterators;
 
+import com.jarq.enums.RegExpression;
 import com.jarq.model.FileContent;
 
 import java.io.IOException;
@@ -20,12 +21,12 @@ public class WordIterator extends StringIterator {
 
     @Override
     public String next() {
-        String filterOnlyLetters = "[a-zA-Z]";
+        String regex = RegExpression.ONLY_LETTER.getRegex();
         StringBuilder sb = new StringBuilder();
         while(hasNext()) {
             String character = String.valueOf(getData().charAt(index));
             index++;
-            if (character.matches(filterOnlyLetters)) {
+            if (character.matches(regex)) {
                 sb.append(character);
             } else {
                 break;

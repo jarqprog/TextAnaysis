@@ -8,7 +8,7 @@ public class StatisticalAnalysis {
 
     private Iterator<String> iterator;
     private Map<String,Integer> dictionary;
-    public List<String> dataCollection;
+    private List<String> dataCollection;
 
     public StatisticalAnalysis(Iterator<String> it) {
         iterator = it;
