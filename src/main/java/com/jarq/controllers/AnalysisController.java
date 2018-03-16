@@ -2,7 +2,6 @@ package com.jarq.controllers;
 
 import com.jarq.model.FileContent;
 import com.jarq.model.IterableText;
-import com.jarq.view.View;
 
 import java.io.IOException;
 
@@ -22,7 +21,6 @@ public abstract class AnalysisController implements TextAnalyzer {
 
     public void runAnalyze() {
         prepareToAnalyze();
-        displaySeparator();
         analyze();
     }
 
@@ -32,9 +30,5 @@ public abstract class AnalysisController implements TextAnalyzer {
 
     protected IterableText<String> getIterable() {
         return iterable;
-    }
-
-    private void displaySeparator() {
-        View.print("\n--- performing analyze ---\n");
     }
 }
