@@ -4,6 +4,7 @@ import com.jarq.model.FileContent;
 
 import java.io.*;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public abstract class StringIterator implements Iterator<String> {
 
@@ -46,7 +47,9 @@ public abstract class StringIterator implements Iterator<String> {
             }
             data = sb.toString();
             removeNonLetterElementsFromEndOfDataCollection();
-
+            if(data.length() == 0) {
+                throw new NoSuchElementException("Object must be recreated!");
+            }
         } catch (IOException e) {
             data = null;
             throw e;
