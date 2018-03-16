@@ -3,6 +3,7 @@ package com.jarq;
 import com.jarq.iterators.CharIterator;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class StatisticalAnalysis {
 
@@ -30,7 +31,13 @@ public class StatisticalAnalysis {
     }
 
     public Set<String> occurMoreThan(Integer num) {
-        return new HashSet<>();
+        Set<String> filtered = new TreeSet<>();
+        for(Map.Entry<String,Integer> pair : dictionary.entrySet()) {
+            if(pair.getValue() > num) {
+                filtered.add(pair.getKey());
+            }
+        }
+        return filtered;
     }
 
     private void setData() {
