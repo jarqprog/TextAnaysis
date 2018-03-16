@@ -1,10 +1,8 @@
 package com.jarq.iterators;
 
-import com.jarq.FileContent;
+import com.jarq.model.FileContent;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class WordIterator extends StringIterator {
 
@@ -22,14 +20,12 @@ public class WordIterator extends StringIterator {
 
     @Override
     public String next() {
-        String characterMatcher = "[a-zA-Z]";
-        Pattern regex = Pattern.compile(characterMatcher);
+        String filterOnlyLetters = "[a-zA-Z]";
         StringBuilder sb = new StringBuilder();
         while(hasNext()) {
             String character = String.valueOf(getData().charAt(index));
-            Matcher matcher = regex.matcher(character);
             index++;
-            if (matcher.find()) {
+            if (character.matches(filterOnlyLetters)) {
                 sb.append(character);
             } else {
                 break;

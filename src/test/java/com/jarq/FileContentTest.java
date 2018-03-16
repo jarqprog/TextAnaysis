@@ -2,6 +2,7 @@ package com.jarq;
 
 import com.jarq.iterators.CharIterator;
 import com.jarq.iterators.WordIterator;
+import com.jarq.model.FileContent;
 import org.junit.*;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestWatchman;
