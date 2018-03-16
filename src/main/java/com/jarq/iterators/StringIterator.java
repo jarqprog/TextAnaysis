@@ -45,6 +45,7 @@ public abstract class StringIterator implements Iterator<String> {
                 }
             }
             data = sb.toString();
+
         } catch (IOException e) {
             data = null;
             throw e;
