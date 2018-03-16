@@ -1,12 +1,6 @@
 package com.jarq.controllers;
 
-
-import com.jarq.model.FileContent;
-import com.jarq.model.StatisticalAnalysis;
 import com.jarq.view.View;
-
-import java.io.IOException;
-import java.util.Iterator;
 
 public class Root {
 
@@ -24,36 +18,17 @@ public class Root {
         Long startTime = System.currentTimeMillis();
 
         for(String filename : filenames) {
-            analyzeTextFromFile(filename);
+            showFileInfo(filename);
+            CharAnalysisController.getInstance(filename).runAnalyze();
+            WordAnalysisController.getInstance(filename).runAnalyze();
         }
-
         Double millisecondToSecondModifier = 0.001;
         Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
         View.print("Benchmark time: " + benchmark + " secs");
     }
 
-    private void analyzeTextFromFile(String filename) {
-
-        FileContent fileContent = null;
-        try {
-            fileContent = new FileContent(filename);
-        } catch (IOException e) {
-            View.print(e.getMessage());
-            System.exit(1);
-        }
-
-        Iterator<String> charIterator = fileContent.charIterator();
-        Iterator<String> wordIterator = fileContent.wordIterator();
-
+    private void showFileInfo(String filename) {
         View.print(String.format("\n\nAnalyze data from file:\n\t-'%s'", filename));
         View.print("----------------------------------------------");
-
-        CharAnalysisController.getInstance(new StatisticalAnalysis(charIterator))
-                .runAnalyze();
-        WordAnalysisController.getInstance(new StatisticalAnalysis(wordIterator))
-                .runAnalyze();
-
-//        TextAnalyzer ta = WordAnalysisController.getInstance(new StatisticalAnalysis(wordIterator));
-//        ta.runAnalyze();  // restart iterator?
     }
 }

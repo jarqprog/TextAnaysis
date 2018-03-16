@@ -7,20 +7,25 @@ import java.util.Map;
 
 public class CharAnalysisController extends AnalysisController {
 
-    public static TextAnalyzer getInstance(StatisticalAnalysis analysis) {
-        return new CharAnalysisController(analysis);
+    private StatisticalAnalysis analysis;
+
+    public static TextAnalyzer getInstance(String filename) {
+        return new CharAnalysisController(filename);
     }
 
-    private CharAnalysisController(StatisticalAnalysis analysis) {
-        super(analysis);
-        if(! analysis.hasCharIterator()) {
-            throw new IllegalArgumentException("You should use analysis with CharIterator!");
+    private CharAnalysisController(String filename) {
+        super(filename);
+        this.analysis = new StatisticalAnalysis(getIterable().charIterator());
+    }
+
+    @Override
+    protected void prepareToAnalyze() {
+        if(analysis.size() == 0) {
+            this.analysis = new StatisticalAnalysis(getIterable().charIterator());  // restart iterator
         }
     }
 
     protected void analyze() {
-
-        displaySeparator();
         showElementsQuantity();
         showRatioOfLettersOccurrence();
         showPercentageVowelsOccurrence();
@@ -31,31 +36,31 @@ public class CharAnalysisController extends AnalysisController {
         String first = "a";
         String second = "e";
 
-        Float ratio = ((float) getAnalysis().countOf(first) / (float) getAnalysis().countOf(second));
+        Float ratio = ((float) analysis.countOf(first) / (float) analysis.countOf(second));
         View.print(String.format("%s:%s count ratio: %.2f", first, second, ratio));
     }
 
     private void showPercentageVowelsOccurrence() {
-        if(! getAnalysis().hasCharIterator()) {
+        if(! analysis.hasCharIterator()) {
             throw new IllegalArgumentException("You should use analysis with CharIterator!");
         }
         String[] vowels = {"a", "o", "i", "e", "u", "A", "O", "I", "E", "U"};
-        Float percentage = ((float) getAnalysis().countOf(vowels) / (float) getAnalysis().size()) * 100f;
+        Float percentage = ((float) analysis.countOf(vowels) / (float) analysis.size()) * 100f;
         String toDisplay = String.format("vowels (percentage): %.2f", percentage);
         View.print(toDisplay);
     }
 
     private void showPercentageOccurrenceOfAllLetters() {
-        if(! getAnalysis().hasCharIterator()) {
+        if(! analysis.hasCharIterator()) {
             throw new IllegalArgumentException("You should use analysis with CharIterator!");
         }
-        Map<String,Integer> lettersOccurrences = getAnalysis().getDictionary();
+        Map<String,Integer> lettersOccurrences = analysis.getDictionary();
         StringBuilder sb = new StringBuilder();
         int counter = 1;
-        int elementsInLine = 5;
+        int elementsInLine = 7;
         for(Map.Entry<String,Integer> pair : lettersOccurrences.entrySet()) {
             String letter = pair.getKey();
-            Float percentageOccurrence = ((float) pair.getValue() / (float) getAnalysis().size())*100f;
+            Float percentageOccurrence = ((float) pair.getValue() / (float) analysis.size())*100f;
             sb.append(String.format("[%s ->%5.2f] ", letter, percentageOccurrence));
             if(counter % elementsInLine == 0) {
                 sb.append("\n");
@@ -63,5 +68,9 @@ public class CharAnalysisController extends AnalysisController {
             counter++;
         }
         View.print(sb.toString());
+    }
+
+    private void showElementsQuantity() {
+        View.print("Char count: " + analysis.size());
     }
 }

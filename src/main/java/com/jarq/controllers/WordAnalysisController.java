@@ -5,20 +5,25 @@ import com.jarq.view.View;
 
 public class WordAnalysisController extends AnalysisController {
 
-    public static TextAnalyzer getInstance(StatisticalAnalysis analysis) {
-        return new WordAnalysisController(analysis);
+    private StatisticalAnalysis analysis;
+
+    public static TextAnalyzer getInstance(String filename) {
+        return new WordAnalysisController(filename);
     }
 
-    private WordAnalysisController(StatisticalAnalysis analysis) {
-        super(analysis);
-        if(analysis.hasCharIterator()) {
-            throw new IllegalArgumentException("You should use analysis with WordIterator!");
+    private WordAnalysisController(String filename) {
+        super(filename);
+        this.analysis = new StatisticalAnalysis(getIterable().wordIterator());
+    }
+
+    @Override
+    protected void prepareToAnalyze() {
+        if(analysis.size() == 0) {
+            this.analysis = new StatisticalAnalysis(getIterable().wordIterator());  // restart iterator
         }
     }
-
+    @Override
     protected void analyze() {
-
-        displaySeparator();
         showElementsQuantity();
         showDictSize();
         showMostPopularWords();
@@ -26,23 +31,27 @@ public class WordAnalysisController extends AnalysisController {
     }
 
     private void showDictSize() {
-        View.print(String.format("Dict size: %s", getAnalysis().dictionarySize()));
+        View.print(String.format("Dict size: %s", analysis.dictionarySize()));
     }
 
     private void showWordOccurrence() {
         String[] wordsToCheck = new String[] {"love", "hate", "music"};
         for(String word : wordsToCheck) {
-            View.print(String.format("'%s' count: %s", word, getAnalysis().countOf(word)));
+            View.print(String.format("'%s' count: %s", word, analysis.countOf(word)));
         }
     }
 
     private void showMostPopularWords() {
         Integer popularityFilter = 1;  // minimum percentage word occurrence in text
         Integer occurrence =
-                (int) ((float) getAnalysis().size() * (0.01f * ((float) popularityFilter)));
+                (int) ((float) analysis.size() * (0.01f * ((float) popularityFilter)));
         String toDisplay = String.format(
                 "Most used words (>%s percent): %s", popularityFilter,
-                getAnalysis().occurMoreThan(occurrence));
+                analysis.occurMoreThan(occurrence));
         View.print(toDisplay);
+    }
+
+    private void showElementsQuantity() {
+        View.print("Word count: " + analysis.size());
     }
 }
