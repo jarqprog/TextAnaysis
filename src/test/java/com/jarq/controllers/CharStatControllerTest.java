@@ -65,7 +65,7 @@ public class CharStatControllerTest {
 
     @Test
     public void getRatioOfLettersOccurrence() {
-        String expected = "a:e count ratio: 0,55";
+        String expected = "a:e count ratio: 0.55";
         assertEquals(
                 expected,
                 controller.getRatioOfLettersOccurrence(
@@ -75,7 +75,7 @@ public class CharStatControllerTest {
 
     @Test
     public void getPercentageVowelsOccurrence() throws IOException {
-        String expected = "vowels (percentage): 38,99";
+        String expected = "vowels (percentage): 38.99";
 
         assertEquals(
                 expected,
@@ -86,7 +86,7 @@ public class CharStatControllerTest {
         StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
         CharStatController bigDataController = CharStatController.getInstance(analysis);
 
-        expected = "vowels (percentage): 38,16";
+        expected = "vowels (percentage): 38.16";
 
         assertEquals(
                 expected,
@@ -95,15 +95,15 @@ public class CharStatControllerTest {
 
     @Test
     public void getPercentageOccurrenceOfAllLetters() {
-        String expected = "[A -> 0,39] [B -> 0,10] [F -> 0,10] [H -> 0,10] " +
-                "[I -> 1,16] [T -> 0,58] [a -> 7,57] \n" +
-                "[b -> 1,55] [c -> 1,94] [d -> 5,14] [e ->13,87] [f -> 1,94] " +
-                "[g -> 2,23] [h -> 5,53] \n" +
-                "[i -> 5,63] [j -> 0,10] [k -> 0,58] [l -> 2,91] [m -> 2,62] " +
-                "[n -> 7,95] [o -> 7,37] \n" +
-                "[p -> 0,97] [q -> 0,10] [r -> 5,53] [s -> 6,11] [t -> 8,73] " +
-                "[u -> 3,01] [v -> 1,07] \n" +
-                "[w -> 3,78] [x -> 0,10] [y -> 1,26] ";
+        String expected = "[A -> 0.39] [B -> 0.10] [F -> 0.10] [H -> 0.10] " +
+                "[I -> 1.16] [T -> 0.58] [a -> 7.57] \n" +
+                "[b -> 1.55] [c -> 1.94] [d -> 5.14] [e ->13.87] [f -> 1.94] " +
+                "[g -> 2.23] [h -> 5.53] \n" +
+                "[i -> 5.63] [j -> 0.10] [k -> 0.58] [l -> 2.91] [m -> 2.62] " +
+                "[n -> 7.95] [o -> 7.37] \n" +
+                "[p -> 0.97] [q -> 0.10] [r -> 5.53] [s -> 6.11] [t -> 8.73] " +
+                "[u -> 3.01] [v -> 1.07] \n" +
+                "[w -> 3.78] [x -> 0.10] [y -> 1.26] ";
 
         assertEquals(
                 expected,

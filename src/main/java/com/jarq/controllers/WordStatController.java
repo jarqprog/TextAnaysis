@@ -3,6 +3,8 @@ package com.jarq.controllers;
 import com.jarq.enums.RegExpression;
 import com.jarq.model.StatisticalAnalysis;
 
+import java.util.Locale;
+
 public class WordStatController {
 
     private StatisticalAnalysis dataset;
@@ -23,7 +25,7 @@ public class WordStatController {
     }
 
     public String getDictSize() {
-        return String.format("Dict size: %s", dataset.dictionarySize());
+        return String.format(Locale.US,"Dict size: %s", dataset.dictionarySize());
     }
 
     public String getWordOccurrence(String[] words) {
@@ -31,7 +33,7 @@ public class WordStatController {
         StringBuilder sb = new StringBuilder();
         Integer counter = 0;
         for(String word : words) {
-            sb.append(String.format("'%s' count: %s", word, dataset.countOf(word)));
+            sb.append(String.format(Locale.US,"'%s' count: %s", word, dataset.countOf(word)));
             if(counter != words.length-1) {
                 sb.append("\n");
             }

@@ -3,6 +3,7 @@ package com.jarq.controllers;
 import com.jarq.enums.RegExpression;
 import com.jarq.model.StatisticalAnalysis;
 
+import java.util.Locale;
 import java.util.Map;
 
 public class CharStatController {
@@ -32,13 +33,13 @@ public class CharStatController {
             }
 
         Float ratio = ((float) dataset.countOf(firstLetter) / (float) dataset.countOf(secondLetter));
-        return String.format("%s:%s count ratio: %.2f", firstLetter, secondLetter, ratio);
+        return String.format(Locale.US,"%s:%s count ratio: %.2f", firstLetter, secondLetter, ratio);
     }
 
     public String getPercentageVowelsOccurrence() {
         String[] vowels = {"a", "o", "i", "e", "u", "A", "O", "I", "E", "U"};
         Float percentage = ((float) dataset.countOf(vowels) / (float) dataset.size()) * 100f;
-        return String.format("vowels (percentage): %.2f", percentage);
+        return String.format(Locale.US,"vowels (percentage): %.2f", percentage);
     }
 
     public String getPercentageOccurrenceOfAllLetters() {
@@ -49,7 +50,7 @@ public class CharStatController {
         for(Map.Entry<String,Integer> pair : lettersOccurrences.entrySet()) {
             String letter = pair.getKey();
             Float percentageOccurrence = ((float) pair.getValue() / (float) dataset.size())*100f;
-            sb.append(String.format("[%s ->%5.2f] ", letter, percentageOccurrence));
+            sb.append(String.format(Locale.US,"[%s ->%5.2f] ", letter, percentageOccurrence));
             if(counter % elementsInLine == 0) {
                 sb.append("\n");
             }
