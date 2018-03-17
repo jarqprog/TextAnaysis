@@ -48,7 +48,7 @@ public abstract class StringIterator implements Iterator<String> {
             data = sb.toString();
             removeNonLetterElementsFromEndOfDataCollection();
             if(data.length() == 0) {
-                throw new NoSuchElementException("Object must be recreated!");
+                throw new NoSuchElementException("There is no text data in file! Change file.");
             }
         } catch (IOException e) {
             data = null;

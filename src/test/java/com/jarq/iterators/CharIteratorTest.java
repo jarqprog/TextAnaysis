@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
-public class WordIteratorTest {
+public class CharIteratorTest {
 
     private FileContent fileContent;
     private Iterator<String> iterator;
@@ -22,7 +22,7 @@ public class WordIteratorTest {
     public void setIterator() {
         try {
             fileContent = new FileContent("test1.txt");
-            iterator = fileContent.wordIterator();
+            iterator = fileContent.charIterator();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,15 +36,15 @@ public class WordIteratorTest {
 
     @Test
     public void testConstructorWithProperParameters() throws IOException {
-        WordIterator it = new WordIterator(fileContent);
+        Iterator<String> it = new CharIterator(fileContent);
         Assert.assertNotNull(it);
         Assert.assertTrue(it.hasNext());
-        Assert.assertEquals("Bardzo", it.next());
+        Assert.assertEquals("B", it.next());
     }
 
     @Test(expected = IOException.class)
     public void testConstructorUsingDirectoryInsteadOfFile() throws IOException {
-        new WordIterator(new FileContent("fake_file"));
+        new CharIterator(new FileContent("fake_file"));
     }
 
     @Test(expected = NoSuchElementException.class)
@@ -55,8 +55,13 @@ public class WordIteratorTest {
     @Test
     public void testHasNext() throws IOException {
 
-        FileContent fc = new FileContent("test_two_words.txt");
-        Iterator<String> it = new WordIterator(fc);
+        Iterator<String> it = new CharIterator(new FileContent("test_two_words.txt"));
+        Assert.assertTrue(it.hasNext());
+        it.next();
+        it.next();
+        it.next();
+        it.next();
+        it.next();
         it.next();
         Assert.assertTrue(it.hasNext());
         it.next();
@@ -65,12 +70,13 @@ public class WordIteratorTest {
 
     @Test
     public void testNext() {
-        assertEquals("Bardzo", iterator.next());
+        iterator.next();
+        assertEquals("a", iterator.next());
         StringBuilder sb = new StringBuilder();
         while(iterator.hasNext()) {
             sb.append(iterator.next());
         }
-        Assert.assertEquals("dawnotemuwodleglejgalaktyceposzedlkotnadrzeczkeinic", sb.toString());
+        Assert.assertEquals("rdzodawnotemuwodleglejgalaktyceposzedlkotnadrzeczkeinic", sb.toString());
         Assert.assertEquals("", iterator.next());
     }
 
@@ -80,4 +86,5 @@ public class WordIteratorTest {
             System.out.println("Starting test: " + method.getName());
         }
     };
+
 }

@@ -22,7 +22,7 @@ public class CharIterator extends StringIterator {
     @Override
     public String next() {
         String regex = RegExpression.ONLY_LETTER.getRegex();
-        String character = null;
+        String character = "";
         while(hasNext()) {
             character = (String.valueOf(getData().charAt(index)));
             index++;

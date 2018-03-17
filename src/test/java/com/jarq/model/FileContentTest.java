@@ -23,7 +23,7 @@ public class FileContentTest {
     }
 
     @After
-    public void destroyFileContent() {
+    public void tearDown() {
         fileContent = null;
     }
 
