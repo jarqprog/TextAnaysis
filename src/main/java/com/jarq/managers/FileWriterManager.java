@@ -13,7 +13,6 @@ public class FileWriterManager extends FileManager implements WriterManager {
     }
 
     private FileWriterManager(String filePath) {
-        super(filePath);
         prepareFile(filePath);
         this.filePath = filePath;
     }
@@ -41,16 +40,5 @@ public class FileWriterManager extends FileManager implements WriterManager {
     private void closeWriters() {
         closeCloseable(bufWriter);
         closeCloseable(fileWriter);
-    }
-
-    private void clearFile() {
-        try{
-            openWriters(false);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            closeWriters();
-        }
     }
 }

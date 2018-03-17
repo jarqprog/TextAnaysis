@@ -30,7 +30,7 @@ public class Root {
 
         Double millisecondToSecondModifier = 0.001;
         Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
-        String benchmarkInfo = String.format("Benchmark time: %s secs", benchmark);
+        String benchmarkInfo = String.format("Benchmark time: %s secs\n", benchmark);
         View.print(benchmarkInfo);
         writer.write(benchmarkInfo, true);
     }

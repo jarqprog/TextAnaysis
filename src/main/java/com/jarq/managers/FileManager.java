@@ -4,13 +4,7 @@ import java.io.Closeable;
 import java.io.File;
 import java.io.IOException;
 
-public abstract class FileManager {
-
-    private String filePath;
-
-    FileManager(String filePath) {
-        this.filePath = filePath;
-    }
+abstract class FileManager {
 
     protected <T extends Closeable> void closeCloseable(T t) {
         try {
@@ -20,14 +14,6 @@ public abstract class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
     }
 
     protected void prepareFile(String filePath){
