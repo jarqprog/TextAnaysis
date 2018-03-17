@@ -4,6 +4,8 @@ import com.jarq.managers.FileWriterManager;
 import com.jarq.managers.WriterManager;
 import com.jarq.view.View;
 
+import java.util.Locale;
+
 public class Root {
 
     private static final String OUTPUT_FILE_PATH = "OUTPUT_RESULT.md";
@@ -30,7 +32,7 @@ public class Root {
 
         Double millisecondToSecondModifier = 0.001;
         Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
-        String benchmarkInfo = String.format("Benchmark time: %s secs\n", benchmark);
+        String benchmarkInfo = String.format(Locale.US,"Benchmark time: %s secs\n", benchmark);
         View.print(benchmarkInfo);
         writer.write(benchmarkInfo, true);
     }
