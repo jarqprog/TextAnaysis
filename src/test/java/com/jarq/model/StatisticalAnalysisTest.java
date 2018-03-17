@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import static org.junit.Assert.*;
+
 public class StatisticalAnalysisTest {
 
     private StatisticalAnalysis charAnalysis, wordAnalysis;
@@ -50,33 +52,33 @@ public class StatisticalAnalysisTest {
 
     @Test
     public void testDictionarySize() throws IOException {
-        Assert.assertEquals(6, (long) new StatisticalAnalysis(
+        assertEquals(6, (long) new StatisticalAnalysis(
                 new CharIterator(new FileContent("test_two_words.txt"))).dictionarySize());
-        Assert.assertEquals(2, (long) new StatisticalAnalysis(
+        assertEquals(2, (long) new StatisticalAnalysis(
                 new WordIterator(new FileContent("test_two_words.txt"))).dictionarySize());
-        Assert.assertEquals(31, (long) charAnalysis.dictionarySize());
-        Assert.assertEquals(147, (long) wordAnalysis.dictionarySize());
+        assertEquals(31, (long) charAnalysis.dictionarySize());
+        assertEquals(147, (long) wordAnalysis.dictionarySize());
     }
 
     @Test
     public void testSize() throws IOException {
-        Assert.assertEquals(7, (long) new StatisticalAnalysis(
+        assertEquals(7, (long) new StatisticalAnalysis(
                 new CharIterator(new FileContent("test_two_words.txt"))).size());
-        Assert.assertEquals(2, (long) new StatisticalAnalysis(
+        assertEquals(2, (long) new StatisticalAnalysis(
                 new WordIterator(new FileContent("test_two_words.txt"))).size());
-        Assert.assertEquals(1031, (long) charAnalysis.size());
-        Assert.assertEquals(268, (long) wordAnalysis.size());
-        Assert.assertEquals(955386, (long) new StatisticalAnalysis(
+        assertEquals(1031, (long) charAnalysis.size());
+        assertEquals(268, (long) wordAnalysis.size());
+        assertEquals(955386, (long) new StatisticalAnalysis(
                 new CharIterator(new FileContent("test_malville_moby.txt"))).size());
-        Assert.assertEquals(219048, (long) new StatisticalAnalysis(
+        assertEquals(219048, (long) new StatisticalAnalysis(
                 new WordIterator(new FileContent("test_malville_moby.txt"))).size());
     }
 
     @Test
     public void testSizeWithHugeFile() throws IOException {
-        Assert.assertEquals(955386, (long) new StatisticalAnalysis(
+        assertEquals(955386, (long) new StatisticalAnalysis(
                 new CharIterator(new FileContent("test_malville_moby.txt"))).size());
-        Assert.assertEquals(219048, (long) new StatisticalAnalysis(
+        assertEquals(219048, (long) new StatisticalAnalysis(
                 new WordIterator(new FileContent("test_malville_moby.txt"))).size());
     }
 
@@ -104,14 +106,14 @@ public class StatisticalAnalysisTest {
         expectedChars.put("i", 1);
         expectedChars.put("s", 1);
 
-        Assert.assertEquals(expectedWords, words.getDictionary());
-        Assert.assertEquals(expectedChars, chars.getDictionary());
+        assertEquals(expectedWords, words.getDictionary());
+        assertEquals(expectedChars, chars.getDictionary());
     }
 
     @Test
     public void testHasCharIterator() {
-        Assert.assertTrue(charAnalysis.hasCharIterator());
-        Assert.assertFalse(wordAnalysis.hasCharIterator());
+        assertTrue(charAnalysis.hasCharIterator());
+        assertFalse(wordAnalysis.hasCharIterator());
     }
 
     @Rule

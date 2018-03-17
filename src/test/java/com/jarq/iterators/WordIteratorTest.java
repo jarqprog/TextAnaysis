@@ -37,9 +37,9 @@ public class WordIteratorTest {
     @Test
     public void testConstructorWithProperParameters() throws IOException {
         WordIterator it = new WordIterator(fileContent);
-        Assert.assertNotNull(it);
-        Assert.assertTrue(it.hasNext());
-        Assert.assertEquals("Bardzo", it.next());
+        assertNotNull(it);
+        assertTrue(it.hasNext());
+        assertEquals("Bardzo", it.next());
     }
 
     @Test(expected = IOException.class)
@@ -58,9 +58,9 @@ public class WordIteratorTest {
         FileContent fc = new FileContent("test_two_words.txt");
         Iterator<String> it = new WordIterator(fc);
         it.next();
-        Assert.assertTrue(it.hasNext());
+        assertTrue(it.hasNext());
         it.next();
-        Assert.assertFalse(it.hasNext());
+        assertFalse(it.hasNext());
     }
 
     @Test
@@ -70,8 +70,8 @@ public class WordIteratorTest {
         while(iterator.hasNext()) {
             sb.append(iterator.next());
         }
-        Assert.assertEquals("dawnotemuwodleglejgalaktyceposzedlkotnadrzeczkeinic", sb.toString());
-        Assert.assertEquals("", iterator.next());
+        assertEquals("dawnotemuwodleglejgalaktyceposzedlkotnadrzeczkeinic", sb.toString());
+        assertEquals("", iterator.next());
     }
 
     @Rule

@@ -1,38 +1,33 @@
 package com.jarq;
 
+import com.jarq.controllers.Root;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/**
- * Unit test for simple Application.
- */
 public class ApplicationTest
-    extends TestCase
-{
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
+    extends TestCase {
+
     public ApplicationTest(String testName )
     {
         super( testName );
     }
 
-    /**
-     * @return the suite of tests being tested
-     */
     public static Test suite()
     {
         return new TestSuite( ApplicationTest.class );
     }
 
-    /**
-     * Rigourous Test :-)
-     */
     public void testApp()
     {
         assertTrue( true );
+    }
+
+
+    public void testMain() {
+
+        String[] args = {"text.txt"};
+
+        assertNotNull(Root.getInstance(args));
     }
 }

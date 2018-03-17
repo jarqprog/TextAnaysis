@@ -37,9 +37,9 @@ public class CharIteratorTest {
     @Test
     public void testConstructorWithProperParameters() throws IOException {
         Iterator<String> it = new CharIterator(fileContent);
-        Assert.assertNotNull(it);
-        Assert.assertTrue(it.hasNext());
-        Assert.assertEquals("B", it.next());
+        assertNotNull(it);
+        assertTrue(it.hasNext());
+        assertEquals("B", it.next());
     }
 
     @Test(expected = IOException.class)
@@ -56,16 +56,16 @@ public class CharIteratorTest {
     public void testHasNext() throws IOException {
 
         Iterator<String> it = new CharIterator(new FileContent("test_two_words.txt"));
-        Assert.assertTrue(it.hasNext());
+        assertTrue(it.hasNext());
         it.next();
         it.next();
         it.next();
         it.next();
         it.next();
         it.next();
-        Assert.assertTrue(it.hasNext());
+        assertTrue(it.hasNext());
         it.next();
-        Assert.assertFalse(it.hasNext());
+        assertFalse(it.hasNext());
     }
 
     @Test
@@ -76,8 +76,8 @@ public class CharIteratorTest {
         while(iterator.hasNext()) {
             sb.append(iterator.next());
         }
-        Assert.assertEquals("rdzodawnotemuwodleglejgalaktyceposzedlkotnadrzeczkeinic", sb.toString());
-        Assert.assertEquals("", iterator.next());
+        assertEquals("rdzodawnotemuwodleglejgalaktyceposzedlkotnadrzeczkeinic", sb.toString());
+        assertEquals("", iterator.next());
     }
 
     @Rule

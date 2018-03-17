@@ -6,6 +6,7 @@ import org.junit.*;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestWatchman;
 import org.junit.runners.model.FrameworkMethod;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -44,19 +45,19 @@ public class FileContentTest {
 
     @Test
     public void testGetCharIterator() {
-        Assert.assertNotNull(fileContent.charIterator());
-        Assert.assertTrue(fileContent.charIterator() instanceof CharIterator);
+        assertNotNull(fileContent.charIterator());
+        assertTrue(fileContent.charIterator() instanceof CharIterator);
     }
 
     @Test
     public void testGetWordIterator() {
-        Assert.assertNotNull(fileContent.wordIterator());
-        Assert.assertTrue(fileContent.wordIterator() instanceof WordIterator);
+        assertNotNull(fileContent.wordIterator());
+        assertTrue(fileContent.wordIterator() instanceof WordIterator);
     }
 
     @Test
     public void testGetProperFilename() {
-        Assert.assertEquals("test.txt", fileContent.getFilename());
+        assertEquals("test.txt", fileContent.getFilename());
     }
 
     @Rule
