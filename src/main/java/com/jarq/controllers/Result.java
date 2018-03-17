@@ -4,4 +4,5 @@ public interface Result {
 
     void showResult();
     String getResult();
+    String toString();
 }

@@ -75,6 +75,11 @@ public class ResultController implements Result {
         return "[is empty]";
     }
 
+    @Override
+    public String toString() {
+        return getResult();
+    }
+
     private String getFileInfo() {
         return String.format("==%s==", filename);
     }
