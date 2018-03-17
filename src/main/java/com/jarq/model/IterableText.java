@@ -2,9 +2,9 @@ package com.jarq.model;
 
 import java.util.Iterator;
 
-public interface IterableText<String> {
+public interface IterableText<T> {
 
-    Iterator<String> charIterator();
-    Iterator<String> wordIterator();
+    Iterator<T> charIterator();
+    Iterator<T> wordIterator();
 
 }

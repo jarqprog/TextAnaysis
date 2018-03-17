@@ -1,21 +1,29 @@
-package com.jarq;
+package com.jarq.view;
 
-import com.jarq.controllers.Root;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestWatchman;
 import org.junit.runners.model.FrameworkMethod;
+
 import static org.junit.Assert.*;
 
-public class ApplicationTest {
+public class ViewTest {
 
     @Test
-    public void testMain() {
+    public void print() {
+    }
 
-        String[] args = {"text.txt"};
+    @Test
+    public void print1() {
+    }
 
-        assertNotNull(Root.getInstance(args));
+    @Test
+    public void print2() {
+    }
+
+    @Test
+    public void print3() {
     }
 
     @Rule

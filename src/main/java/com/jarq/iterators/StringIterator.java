@@ -1,16 +1,17 @@
 package com.jarq.iterators;
 
+import com.jarq.enums.RegExpression;
 import com.jarq.model.FileContent;
 
 import java.io.*;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public abstract class StringIterator implements Iterator<String> {
+abstract class StringIterator implements Iterator<String> {
 
     private String data;
 
-    public StringIterator(FileContent fileContent) throws IOException {
+    StringIterator(FileContent fileContent) throws IOException {
         data = "";
         setupData(fileContent);
     }
@@ -48,7 +49,7 @@ public abstract class StringIterator implements Iterator<String> {
             data = sb.toString();
             removeNonLetterElementsFromEndOfDataCollection();
             if(data.length() == 0) {
-                throw new NoSuchElementException("Object must be recreated!");
+                throw new NoSuchElementException("There is no text data in file! Change file.");
             }
         } catch (IOException e) {
             data = null;
@@ -60,9 +61,9 @@ public abstract class StringIterator implements Iterator<String> {
     }
 
     private void removeNonLetterElementsFromEndOfDataCollection() {
-        String ONLY_LETTERS_REGEX = "[a-zA-Z]";
+        String regex = RegExpression.ONLY_LETTER.getRegex();
         for(int i=data.length()-1; i >=0; i--) {
-            if(String.valueOf(data.charAt(i)).matches(ONLY_LETTERS_REGEX)) {
+            if(String.valueOf(data.charAt(i)).matches(regex)) {
                 break;
             }
             data = data.substring(0, i);

@@ -1,12 +1,12 @@
-package com.jarq;
+package com.jarq.model;
 
 import com.jarq.iterators.CharIterator;
 import com.jarq.iterators.WordIterator;
-import com.jarq.model.FileContent;
 import org.junit.*;
 import org.junit.rules.MethodRule;
 import org.junit.rules.TestWatchman;
 import org.junit.runners.model.FrameworkMethod;
+import static org.junit.Assert.*;
 
 import java.io.IOException;
 
@@ -24,7 +24,7 @@ public class FileContentTest {
     }
 
     @After
-    public void destroyFileContent() {
+    public void tearDown() {
         fileContent = null;
     }
 
@@ -44,28 +44,20 @@ public class FileContentTest {
     }
 
     @Test
-    public void getCharIterator() {
-        Assert.assertNotNull(fileContent.charIterator());
+    public void testGetCharIterator() {
+        assertNotNull(fileContent.charIterator());
+        assertTrue(fileContent.charIterator() instanceof CharIterator);
     }
 
     @Test
-    public void getWordIterator() {
-        Assert.assertNotNull(fileContent.wordIterator());
-    }
-
-    @Test
-    public void testCharIteratorType() {
-        Assert.assertTrue(fileContent.charIterator() instanceof CharIterator);
-    }
-
-    @Test
-    public void testWordIteratorType() {
-        Assert.assertTrue(fileContent.wordIterator() instanceof WordIterator);
+    public void testGetWordIterator() {
+        assertNotNull(fileContent.wordIterator());
+        assertTrue(fileContent.wordIterator() instanceof WordIterator);
     }
 
     @Test
     public void testGetProperFilename() {
-        Assert.assertEquals("test.txt", fileContent.getFilename());
+        assertEquals("test.txt", fileContent.getFilename());
     }
 
     @Rule

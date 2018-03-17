@@ -1,8 +1,13 @@
 package com.jarq.controllers;
 
+import com.jarq.managers.FileWriterManager;
+import com.jarq.managers.WriterManager;
 import com.jarq.view.View;
 
 public class Root {
+
+    private static final String OUTPUT_FILE_PATH = "OUTPUT_RESULT.md";
+    private WriterManager writer;
 
     public static Root getInstance(String[] filenames) {
         return new Root(filenames);
@@ -10,40 +15,31 @@ public class Root {
 
     private final String[] filenames;
 
-    private Root(String[] filenames){
+    private Root(String[] filenames) {
+        if(filenames.length == 0) {
+            throw new IllegalArgumentException("please provide file names for text analysis");
+        }
         this.filenames = filenames;
+        writer = FileWriterManager.getInstance(OUTPUT_FILE_PATH);
     }
 
     public void runApp() {
         Long startTime = System.currentTimeMillis();
 
-        performAnalyze();  // with default settings
-        CharAnalysisController.setLettersToCalculateOccurrenceRatio(new String[]{"i", "o"});
-        WordAnalysisController.setMinimalWordOccurrenceThreshold(4);
-        WordAnalysisController.setWordsToCalculateOccurrence(new String[]{"drink", "rock", "sex"});
-        performAnalyze();  // new settings
+        performAnalyze();
+
         Double millisecondToSecondModifier = 0.001;
         Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
-        showSeparator();
-        View.print("Benchmark time: " + benchmark + " secs");
-        showSeparator();
+        String benchmarkInfo = String.format("Benchmark time: %s secs\n", benchmark);
+        View.print(benchmarkInfo);
+        writer.write(benchmarkInfo, true);
     }
 
     private void performAnalyze() {
         for(String filename : filenames) {
-            showSeparator();
-            showFileInfo(filename);
-            CharAnalysisController.getInstance(filename).runAnalyze();
-            WordAnalysisController.getInstance(filename).runAnalyze();
+            Result result = ResultController.getInstance(filename);
+            result.showResult();
+            writer.write(result.getResult(), true);
         }
-    }
-
-    private void showFileInfo(String filename) {
-        View.print(String.format("Analyze data from file '%s'", filename));
-        showSeparator();
-    }
-
-    private void showSeparator() {
-        View.print("-----------------------------------------------------------");
     }
 }
