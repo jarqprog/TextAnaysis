@@ -15,7 +15,10 @@ public class Root {
 
     private final String[] filenames;
 
-    private Root(String[] filenames){
+    private Root(String[] filenames) {
+        if(filenames.length == 0) {
+            throw new IllegalArgumentException("please provide file names for text analysis");
+        }
         this.filenames = filenames;
         writer = FileWriterManager.getInstance(OUTPUT_FILE_PATH);
     }

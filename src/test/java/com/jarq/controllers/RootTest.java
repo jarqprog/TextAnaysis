@@ -1,4 +1,4 @@
-package com.jarq.view;
+package com.jarq.controllers;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -8,22 +8,22 @@ import org.junit.runners.model.FrameworkMethod;
 
 import static org.junit.Assert.*;
 
-public class ViewTest {
+public class RootTest {
+
+    private final String[] args = {"test.txt", "test_two_words"};
 
     @Test
-    public void print() {
+    public void getInstance() {
+        assertNotNull(Root.getInstance(args));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void getInstanceWithNoFileNames() {
+        Root.getInstance(new String[]{});
     }
 
     @Test
-    public void print1() {
-    }
-
-    @Test
-    public void print2() {
-    }
-
-    @Test
-    public void print3() {
+    public void runApp() {
     }
 
     @Rule
