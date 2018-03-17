@@ -1,6 +1,5 @@
 package com.jarq.view;
 
-import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Map;
 

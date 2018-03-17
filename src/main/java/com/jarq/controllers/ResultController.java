@@ -63,21 +63,16 @@ public class ResultController implements Result {
 
     @Override
     public void showResult() {
-        buildResult();
         View.print(getResult());
     }
 
     @Override
     public String getResult() {
+        buildResult();
         if(result.length() > 0) {
             return result.toString();
         }
         return "[is empty]";
-    }
-
-    @Override
-    public String toString() {
-        return getResult();
     }
 
     private String getFileInfo() {
