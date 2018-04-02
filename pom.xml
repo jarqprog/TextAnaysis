@@ -21,10 +21,10 @@
     <outputDirectory>${project.build.directory}</outputDirectory>
     <resources>
       <resource>
-        <directory>${project.basedir}</directory>
-        <includes>
-          <include>*.txt</include>
-        </includes>
+        <directory>${project.basedir}.resources</directory>
+        <!--<includes>-->
+          <!--<include>*.txt</include>-->
+        <!--</includes>-->
       </resource>
     </resources>
     <plugins>

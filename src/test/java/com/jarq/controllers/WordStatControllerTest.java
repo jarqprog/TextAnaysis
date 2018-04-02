@@ -1,5 +1,6 @@
 package com.jarq.controllers;
 
+import com.jarq.enums.Path;
 import com.jarq.model.FileContent;
 import com.jarq.model.StatisticalAnalysis;
 import org.junit.*;
@@ -14,8 +15,8 @@ import java.util.Iterator;
 public class WordStatControllerTest {
 
     private WordStatController controller;
-    private final String filename = "test.txt";
-    private final String hugeFile = "test_dickens_great.txt";
+    private final String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
+    private final String hugeFile = Path.RESOURCES_DIRECTORY.getPath() + "test_dickens_great.txt";
     private final String[] wordsToCalculateOccurrence = {"love", "hate", "music"};
     private final Integer minimalWordOccurrenceThreshold = 1;  // percentage
 

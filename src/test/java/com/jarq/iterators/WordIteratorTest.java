@@ -1,5 +1,6 @@
 package com.jarq.iterators;
 
+import com.jarq.enums.Path;
 import com.jarq.model.FileContent;
 import org.junit.*;
 import org.junit.rules.MethodRule;
@@ -21,7 +22,7 @@ public class WordIteratorTest {
     @Before
     public void setIterator() {
         try {
-            fileContent = new FileContent("test1.txt");
+            fileContent = new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test1.txt");
             iterator = fileContent.wordIterator();
         } catch (IOException e) {
             e.printStackTrace();
@@ -44,18 +45,19 @@ public class WordIteratorTest {
 
     @Test(expected = IOException.class)
     public void testConstructorUsingDirectoryInsteadOfFile() throws IOException {
-        new WordIterator(new FileContent("fake_file"));
+        new WordIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "fake_file"));
     }
 
     @Test(expected = NoSuchElementException.class)
-    public void testConstructorWithFileContentNotContainingText() throws IOException, NoSuchElementException {
-        new CharIterator(new FileContent("numbers.txt"));
+    public void testConstructorWithFileContentNotContainingText()
+            throws IOException, NoSuchElementException {
+        new CharIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "numbers.txt"));
     }
 
     @Test
     public void testHasNext() throws IOException {
 
-        FileContent fc = new FileContent("test_two_words.txt");
+        FileContent fc = new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt");
         Iterator<String> it = new WordIterator(fc);
         it.next();
         assertTrue(it.hasNext());

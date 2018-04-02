@@ -1,5 +1,6 @@
 package com.jarq.controllers;
 
+import com.jarq.enums.Path;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class ResultControllerTest {
 
-    private final String filename = "test.txt";
+    private final String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
     private Result resultController;
 
     @Before
@@ -32,7 +33,7 @@ public class ResultControllerTest {
 
     @Test
     public void getResult() {
-        String expected = "==test.txt==\n" +
+        String expected = "==" + Path.RESOURCES_DIRECTORY.getPath() + "test.txt==\n" +
                 "Char count: 1031\n" +
                 "Word count: 268\n" +
                 "Dict size: 147\n" +

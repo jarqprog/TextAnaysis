@@ -1,5 +1,6 @@
 package com.jarq.controllers;
 
+import com.jarq.enums.Path;
 import com.jarq.model.FileContent;
 import com.jarq.model.StatisticalAnalysis;
 import org.junit.After;
@@ -14,8 +15,8 @@ import static org.junit.Assert.*;
 public class CharStatControllerTest {
 
     private CharStatController controller;
-    private final String filename = "test.txt";
-    private final String hugeFile = "test_dickens_great.txt";
+    private final String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
+    private final String hugeFile = Path.RESOURCES_DIRECTORY.getPath() + "test_dickens_great.txt";
     private final String[] lettersToCalculateOccurrenceRatio = {"a", "e"};
 
     @Before

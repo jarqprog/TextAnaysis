@@ -1,4 +1,6 @@
-Analyzes the structure of the text.
+Application analyzes the structure of the text.
+Text files that you want to analyze, put in the 'resources' directory.
+Indicate filenames as an command-line arguments (args table) when running application.
 
 ***
 
