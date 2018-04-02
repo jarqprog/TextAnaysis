@@ -1,5 +1,6 @@
 package com.jarq.model;
 
+import com.jarq.enums.Path;
 import com.jarq.iterators.CharIterator;
 import com.jarq.iterators.WordIterator;
 import org.junit.*;
@@ -17,7 +18,7 @@ public class FileContentTest {
     @Before
     public void setFileContent() {
         try {
-            fileContent = new FileContent("test.txt");
+            fileContent = new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test.txt");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,17 +31,17 @@ public class FileContentTest {
 
     @Test(expected = IOException.class)
     public void createFileContentWithNotExistingFile() throws IOException {
-        new FileContent("file");
+        new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "file");
     }
 
     @Test(expected = IOException.class)
     public void createFileContentWithDirectoryInsteadOfFile() throws IOException {
-        new FileContent("fake_file");
+        new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "fake_file");
     }
 
     @Test(expected = IOException.class)
     public void createFileContentWithEmptyFile() throws IOException {
-        new FileContent("empty_file.txt");
+        new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "empty_file.txt");
     }
 
     @Test
@@ -57,7 +58,7 @@ public class FileContentTest {
 
     @Test
     public void testGetProperFilename() {
-        assertEquals("test.txt", fileContent.getFilename());
+        assertEquals(Path.RESOURCES_DIRECTORY.getPath() + "test.txt", fileContent.getFilename());
     }
 
     @Rule

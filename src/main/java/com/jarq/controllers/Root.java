@@ -1,5 +1,6 @@
 package com.jarq.controllers;
 
+import com.jarq.enums.Path;
 import com.jarq.managers.FileWriterManager;
 import com.jarq.managers.WriterManager;
 import com.jarq.view.View;
@@ -39,7 +40,8 @@ public class Root {
 
     private void performAnalyze() {
         for(String filename : filenames) {
-            Result result = ResultController.getInstance(filename);
+            String filePath = Path.RESOURCES_DIRECTORY.getPath() + filename;
+            Result result = ResultController.getInstance(filePath);
             result.showResult();
             writer.write(result.getResult(), true);
         }
