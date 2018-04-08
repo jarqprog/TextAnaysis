@@ -10,7 +10,6 @@ import java.io.IOException;
 public class ResultController implements Result {
 
     private String[] wordsToCalculateOccurrence = {"love", "hate", "music"};
-    private Integer minimalWordOccurrenceThreshold = 1;  // percentage
     private String[] lettersToCalculateOccurrenceRatio = {"a", "e"};
 
     private String filename;
@@ -39,6 +38,7 @@ public class ResultController implements Result {
     }
 
     private void buildResult() {
+        Integer minimalWordOccurrenceThreshold = 1;
         result = new StringBuilder();
         result.append(getFileInfo());
         result.append(getNextLine());

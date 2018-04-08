@@ -1,46 +1,47 @@
 package com.jarq.controllers;
 
+import com.jarq.TextAnalysisTest;
 import com.jarq.enums.Path;
 import com.jarq.model.FileContent;
 import com.jarq.model.StatisticalAnalysis;
 import org.junit.*;
-import org.junit.rules.MethodRule;
-import org.junit.rules.TestWatchman;
-import org.junit.runners.model.FrameworkMethod;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
 import java.util.Iterator;
 
-public class WordStatControllerTest {
+public class WordStatControllerTest extends TextAnalysisTest {
 
     private WordStatController controller;
     private final String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
     private final String hugeFile = Path.RESOURCES_DIRECTORY.getPath() + "test_dickens_great.txt";
     private final String[] wordsToCalculateOccurrence = {"love", "hate", "music"};
-    private final Integer minimalWordOccurrenceThreshold = 1;  // percentage
 
     @Before
     public void setUp() throws IOException {
+
         FileContent fileContent = new FileContent(filename);
         Iterator<String> iterator = fileContent.wordIterator();
         StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
         controller = WordStatController.getInstance(analysis);
     }
 
-    @After
-    public void tearDown() {
-        controller = null;
+    @Test
+    public void getInstanceWordStatController() {
+
+        assertNotNull(controller);
+        assertNotNull(controller.getDataset());
+        assertTrue(controller.getDataset() instanceof StatisticalAnalysis);
     }
 
     @Test
-    public void getInstanceWordStatController() throws IOException {
+    public void getInstanceWordStatControllerUsingHugeFile() throws IOException {
 
-        assertNotNull(controller);
         FileContent fileContent = new FileContent(hugeFile);
         Iterator<String> iterator = fileContent.wordIterator();
         StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
         WordStatController bigDataController = WordStatController.getInstance(analysis);
+
         assertNotNull(bigDataController);
         assertNotNull(bigDataController.getDataset());
         assertTrue(bigDataController.getDataset() instanceof StatisticalAnalysis);
@@ -53,7 +54,8 @@ public class WordStatControllerTest {
         FileContent fileContent = new FileContent(filename);
         Iterator<String> iterator = fileContent.charIterator();  // charIterator - incorrect
         StatisticalAnalysis fakeAnalysis = new StatisticalAnalysis(iterator);
-        WordStatController.getInstance(fakeAnalysis);
+
+        WordStatController.getInstance(fakeAnalysis);  // should throw exception
     }
 
     @Test
@@ -64,39 +66,52 @@ public class WordStatControllerTest {
     }
 
     @Test
-    public void getDictSize() throws IOException {
+    public void getDictSize() {
         String expected = "Dict size: 147";
+
         assertEquals(expected, controller.getDictSize());
+    }
+
+    @Test
+    public void getDictSizeWithHugeText() throws IOException {
 
         FileContent fileContent = new FileContent(hugeFile);
         Iterator<String> iterator = fileContent.wordIterator();
         StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
         WordStatController bigDataController = WordStatController.getInstance(analysis);
-        expected = "Dict size: 11678";
+        String expected = "Dict size: 11678";
+
         assertEquals(expected, bigDataController.getDictSize());
     }
 
     @Test
-    public void getWordOccurrence() throws IOException {
+    public void getWordOccurrence() {
         String expected = "'love' count: 1\n" +
                 "'hate' count: 0\n" +
                 "'music' count: 3";
+
         assertEquals(
                 expected , controller.getWordOccurrence(wordsToCalculateOccurrence));
+    }
+
+    @Test
+    public void getWordOccurrenceFromHugeText() throws IOException {
 
         FileContent fileContent = new FileContent(hugeFile);
         Iterator<String> iterator = fileContent.wordIterator();
         StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
         WordStatController bigDataController = WordStatController.getInstance(analysis);
-        expected = "'love' count: 53\n" +
+        String expected = "'love' count: 53\n" +
                 "'hate' count: 4\n" +
                 "'music' count: 4";
+
         assertEquals(
                 expected , bigDataController.getWordOccurrence(wordsToCalculateOccurrence));
     }
 
     @Test
     public void getMostPopularWords() {
+        final Integer minimalWordOccurrenceThreshold = 1;  // percentage
         String expected = "Most used words (>1 percent): [I, a, and, been, " +
                 "figure, had, in, is, it, me, music, no, not, of, old, the, to, was, where]";
 
@@ -105,25 +120,23 @@ public class WordStatControllerTest {
     }
 
     @Test
-    public void getWordsQuantity() throws IOException {
+    public void getWordsQuantity() {
         String expected = "Word count: 268";
+
         assertEquals(
                 expected , controller.getWordsQuantity());
+    }
+
+    @Test
+    public void getWordsQuantityFromHugeText() throws IOException {
 
         FileContent fileContent = new FileContent(hugeFile);
         Iterator<String> iterator = fileContent.wordIterator();
         StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
         WordStatController bigDataController = WordStatController.getInstance(analysis);
-        expected = "Word count: 188917";
+        String expected = "Word count: 188917";
+
         assertEquals(
                 expected , bigDataController.getWordsQuantity());
     }
-
-    @Rule
-    public MethodRule watchman = new TestWatchman() {
-        public void starting(FrameworkMethod method) {
-            System.out.println("Starting test: " + method.getName());
-        }
-    };
-
 }

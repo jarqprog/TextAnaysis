@@ -1,14 +1,11 @@
 package com.jarq.controllers;
 
-import org.junit.Rule;
+import com.jarq.TextAnalysisTest;
 import org.junit.Test;
-import org.junit.rules.MethodRule;
-import org.junit.rules.TestWatchman;
-import org.junit.runners.model.FrameworkMethod;
 
 import static org.junit.Assert.*;
 
-public class RootTest {
+public class RootTest extends TextAnalysisTest {
 
     private final String[] args = {"test.txt", "test_two_words"};
 
@@ -22,14 +19,4 @@ public class RootTest {
         Root.getInstance(new String[]{});
     }
 
-    @Test
-    public void runApp() {
-    }
-
-    @Rule
-    public MethodRule watchman = new TestWatchman() {
-        public void starting(FrameworkMethod method) {
-            System.out.println("Starting test: " + method.getName());
-        }
-    };
 }

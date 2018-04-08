@@ -48,7 +48,6 @@ public class FileContent implements IterableText<String> {
     }
 
     private String createText() throws IOException {
-        String text;
         String line;
         String nextLine = "\n";
         StringBuilder sb = new StringBuilder();
