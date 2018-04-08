@@ -4,9 +4,6 @@ import com.jarq.enums.Path;
 import com.jarq.iterators.CharIterator;
 import com.jarq.iterators.WordIterator;
 import org.junit.*;
-import org.junit.rules.MethodRule;
-import org.junit.rules.TestWatchman;
-import org.junit.runners.model.FrameworkMethod;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
@@ -55,11 +52,4 @@ public class FileContentTest {
     public void testGetProperFilename() {
         assertEquals(Path.RESOURCES_DIRECTORY.getPath() + "test.txt", fileContent.getFilename());
     }
-
-    @Rule
-    public MethodRule watchman = new TestWatchman() {
-        public void starting(FrameworkMethod method) {
-            System.out.println("Starting test: " + method.getName());
-        }
-    };
 }
