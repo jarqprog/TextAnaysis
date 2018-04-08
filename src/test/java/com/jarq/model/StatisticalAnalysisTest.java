@@ -1,63 +1,39 @@
 package com.jarq.model;
 
+import com.jarq.TextAnalysisTest;
 import com.jarq.enums.Path;
 import com.jarq.iterators.CharIterator;
 import com.jarq.iterators.WordIterator;
 import org.junit.*;
-import org.junit.rules.MethodRule;
-import org.junit.rules.TestWatchman;
-import org.junit.runners.model.FrameworkMethod;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 import static org.junit.Assert.*;
 
-public class StatisticalAnalysisTest {
+public class StatisticalAnalysisTest extends TextAnalysisTest {
 
     private StatisticalAnalysis charAnalysis, wordAnalysis;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws IOException {
         charAnalysis = new StatisticalAnalysis(
                 new CharIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test.txt")));
         wordAnalysis = new StatisticalAnalysis(
                 new WordIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test.txt")));
     }
 
-    @After
-    public void tearDown() {
-        charAnalysis = null;
-        wordAnalysis = null;
-    }
-
-    @Test(expected = IOException.class)
-    public void testCreateWithEmptyFile() throws IOException {
-        new StatisticalAnalysis(
-                new CharIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "empty_file.txt")));
-    }
-
-    @Test(expected = IOException.class)
-    public void testCreateWithFakeFile() throws IOException {
-        new StatisticalAnalysis(
-                new CharIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "fake_file")));
-    }
-
-    @Test(expected = NoSuchElementException.class)
-    public void testCreateWithNumbersFile() throws NoSuchElementException, IOException {
-        new StatisticalAnalysis(
-                new CharIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "numbers.txt")));
-    }
-
     @Test
     public void testDictionarySize() throws IOException {
         assertEquals(6, (long) new StatisticalAnalysis(new CharIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).dictionarySize());
+
         assertEquals(2, (long) new StatisticalAnalysis(new WordIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).dictionarySize());
+
         assertEquals(31, (long) charAnalysis.dictionarySize());
+
         assertEquals(147, (long) wordAnalysis.dictionarySize());
     }
 
@@ -65,20 +41,26 @@ public class StatisticalAnalysisTest {
     public void testSize() throws IOException {
         assertEquals(7, (long) new StatisticalAnalysis(new CharIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).size());
+
         assertEquals(2, (long) new StatisticalAnalysis(new WordIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).size());
+
         assertEquals(1031, (long) charAnalysis.size());
+
         assertEquals(268, (long) wordAnalysis.size());
+
         assertEquals(955386, (long) new StatisticalAnalysis(new CharIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
+
         assertEquals(219048, (long) new StatisticalAnalysis(new WordIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
     }
 
     @Test
-    public void testSizeWithHugeFile() throws IOException {
+    public void testSizeUsingHugeFile() throws IOException {
         assertEquals(955386, (long) new StatisticalAnalysis(new CharIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
+
         assertEquals(219048, (long) new StatisticalAnalysis(new WordIterator(
                 new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
     }
@@ -112,11 +94,4 @@ public class StatisticalAnalysisTest {
         assertTrue(charAnalysis.hasCharIterator());
         assertFalse(wordAnalysis.hasCharIterator());
     }
-
-    @Rule
-    public MethodRule watchman = new TestWatchman() {
-        public void starting(FrameworkMethod method) {
-            System.out.println("Starting test: " + method.getName());
-        }
-    };
 }

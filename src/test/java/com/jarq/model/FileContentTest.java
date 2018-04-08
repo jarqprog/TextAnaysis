@@ -24,11 +24,6 @@ public class FileContentTest {
         }
     }
 
-    @After
-    public void tearDown() {
-        fileContent = null;
-    }
-
     @Test(expected = IOException.class)
     public void createFileContentWithNotExistingFile() throws IOException {
         new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "file");
