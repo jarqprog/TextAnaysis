@@ -3,28 +3,27 @@ package com.jarq.iterators;
 import com.jarq.enums.RegExpression;
 import com.jarq.model.FileContent;
 
-import java.io.IOException;
+import java.util.Iterator;
 
-public class CharIterator extends StringIterator {
+public class CharIterator implements Iterator<String> {
 
     private Integer index;
+    private String text;
 
-    public CharIterator(FileContent fileContent) throws IOException {
-        super(fileContent);
+    public CharIterator(FileContent fileContent) {
+        text = fileContent.getText();
         index = 0;
     }
 
-    @Override
     public boolean hasNext() {
-        return index < getData().length();
+        return index < text.length();
     }
 
-    @Override
     public String next() {
         String regex = RegExpression.ONLY_LETTER.getRegex();
         String character = "";
         while(hasNext()) {
-            character = (String.valueOf(getData().charAt(index)));
+            character = (String.valueOf(text.charAt(index)));
             index++;
             if (character.matches(regex)) {
                 break;

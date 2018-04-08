@@ -1,21 +1,44 @@
 package com.jarq.model;
 
+import com.jarq.enums.RegExpression;
 import com.jarq.iterators.CharIterator;
 import com.jarq.iterators.WordIterator;
 
 import java.io.*;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class FileContent implements IterableText<String> {
 
-    private String filename;
+    private final String filename;
+    private String text;
 
     public FileContent(String filename) throws IOException {
-        this(new File(filename));
+        checkFile(new File(filename));
         this.filename = filename;
+        text = createText();
     }
 
-    private FileContent(File file) throws IOException {
+    @Override
+    public Iterator<String> charIterator() {
+        return new CharIterator(this);
+    }
+
+    @Override
+    public Iterator<String> wordIterator() {
+        return new WordIterator(this);
+    }
+
+    @Override
+    public String getText() {
+        return text;
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    private void checkFile(File file) throws IOException {
         if(!file.exists())
             throw new FileNotFoundException("File doesn't exist: " + file.getPath());
         if(!file.isFile())
@@ -24,30 +47,39 @@ public class FileContent implements IterableText<String> {
             throw new IOException("Given file empty: " + file.getPath());
     }
 
-    @Override
-    public Iterator<String> charIterator() {
-        try {
-            return new CharIterator(this);
+    private String createText() throws IOException {
+        String text;
+        String line;
+        String nextLine = "\n";
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(new File(filename)))) {
+            while((line = bufferedReader.readLine()) != null) {
+                line = line.replaceAll("\\s+"," ");
+                if(line.length() > 0) {
+                    sb.append(line.trim());
+                    sb.append(nextLine);
+                }
+            }
+            text = sb.toString();
+            removeNonLetterElementsFromEndOfText();
+            if(text.length() == 0) {
+                throw new NoSuchElementException("There is no text data in file! Change file.");
+            }
         } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-            return null;
+            throw new IOException();
         }
+        return text;
     }
 
-    @Override
-    public Iterator<String> wordIterator() {
-        try {
-            return new WordIterator(this);
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-            return null;
+    private void removeNonLetterElementsFromEndOfText() {
+        String regex = RegExpression.ONLY_LETTER.getRegex();
+        int cutIndex = text.length()-1;
+        for(int i=cutIndex; i >=0; i--) {
+            if (String.valueOf(text.charAt(i)).matches(regex)) {
+                break;
+            }
+            cutIndex = i;
         }
+        text = text.substring(0, cutIndex);
     }
-
-    public String getFilename() {
-        return filename;
-    }
-
 }
