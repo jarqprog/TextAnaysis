@@ -7,6 +7,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 public class FileContentTest {
 
@@ -14,26 +15,37 @@ public class FileContentTest {
 
     @Before
     public void setFileContent() {
+
+        String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
         try {
-            fileContent = new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test.txt");
+            fileContent = new FileContent(filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Test(expected = IOException.class)
-    public void createFileContentWithNotExistingFile() throws IOException {
-        new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "file");
+    public void createFileContentUsingNotExistingFile() throws IOException {
+        String notExisting = Path.RESOURCES_DIRECTORY.getPath() + "file";
+        new FileContent(notExisting);
     }
 
     @Test(expected = IOException.class)
-    public void createFileContentWithDirectoryInsteadOfFile() throws IOException {
-        new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "fake_file");
+    public void createFileContentUsingDirectoryInsteadOfFile() throws IOException {
+        String fakeFile = Path.RESOURCES_DIRECTORY.getPath() + "fake_file";
+        new FileContent(fakeFile);
     }
 
     @Test(expected = IOException.class)
-    public void createFileContentWithEmptyFile() throws IOException {
-        new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "empty_file.txt");
+    public void createFileContentUsingEmptyFile() throws IOException {
+        String emptyFile = Path.RESOURCES_DIRECTORY.getPath() + "empty_file";
+        new FileContent(emptyFile);
+    }
+
+    @Test(expected = NoSuchElementException.class)
+    public void createFileContentUsingFileThatNotContainsAnyLetters() throws IOException {
+        String noLettersFile = Path.RESOURCES_DIRECTORY.getPath() + "numbers.txt";
+        new FileContent(noLettersFile);
     }
 
     @Test
@@ -50,6 +62,8 @@ public class FileContentTest {
 
     @Test
     public void testGetProperFilename() {
-        assertEquals(Path.RESOURCES_DIRECTORY.getPath() + "test.txt", fileContent.getFilename());
+        String expectedFilename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
+
+        assertEquals(expectedFilename, fileContent.getFilename());
     }
 }

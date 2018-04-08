@@ -18,19 +18,22 @@ public class StatisticalAnalysisTest extends TextAnalysisTest {
 
     @Before
     public void setUp() throws IOException {
+        String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
         charAnalysis = new StatisticalAnalysis(
-                new CharIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test.txt")));
+                new CharIterator(new FileContent(filename)));
         wordAnalysis = new StatisticalAnalysis(
-                new WordIterator(new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test.txt")));
+                new WordIterator(new FileContent(filename)));
     }
 
     @Test
     public void testDictionarySize() throws IOException {
+        String filename = Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt";
+
         assertEquals(6, (long) new StatisticalAnalysis(new CharIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).dictionarySize());
+                new FileContent(filename))).dictionarySize());
 
         assertEquals(2, (long) new StatisticalAnalysis(new WordIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).dictionarySize());
+                new FileContent(filename))).dictionarySize());
 
         assertEquals(31, (long) charAnalysis.dictionarySize());
 
@@ -39,38 +42,34 @@ public class StatisticalAnalysisTest extends TextAnalysisTest {
 
     @Test
     public void testSize() throws IOException {
+        String filename = Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt";
+        String malvilleMobyFile = Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt";
+
         assertEquals(7, (long) new StatisticalAnalysis(new CharIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).size());
+                new FileContent(filename))).size());
 
         assertEquals(2, (long) new StatisticalAnalysis(new WordIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt"))).size());
+                new FileContent(filename))).size());
 
         assertEquals(1031, (long) charAnalysis.size());
 
         assertEquals(268, (long) wordAnalysis.size());
 
         assertEquals(955386, (long) new StatisticalAnalysis(new CharIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
+                new FileContent(malvilleMobyFile))).size());
 
         assertEquals(219048, (long) new StatisticalAnalysis(new WordIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
-    }
-
-    @Test
-    public void testSizeUsingHugeFile() throws IOException {
-        assertEquals(955386, (long) new StatisticalAnalysis(new CharIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
-
-        assertEquals(219048, (long) new StatisticalAnalysis(new WordIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_malville_moby.txt"))).size());
+                new FileContent(malvilleMobyFile))).size());
     }
 
     @Test
     public void testGetDictionary() throws IOException {
+        String filename = Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt";
+
         StatisticalAnalysis words = new StatisticalAnalysis(new WordIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt")));
+                new FileContent(filename)));
         StatisticalAnalysis chars = new StatisticalAnalysis(new CharIterator(
-                new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt")));
+                new FileContent(filename)));
 
         Map<String,Integer> expectedWords = new HashMap<>();
         Map<String,Integer> expectedChars = new HashMap<>();

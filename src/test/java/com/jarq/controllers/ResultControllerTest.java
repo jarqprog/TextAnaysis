@@ -24,7 +24,9 @@ public class ResultControllerTest extends TextAnalysisTest {
 
     @Test
     public void getResult() {
-        String expected = "==" + Path.RESOURCES_DIRECTORY.getPath() + "test.txt==\n" +
+        String expected = "==" +
+                Path.RESOURCES_DIRECTORY.getPath() +
+                "test.txt==\n" +
                 "Char count: 1031\n" +
                 "Word count: 268\n" +
                 "Dict size: 147\n" +

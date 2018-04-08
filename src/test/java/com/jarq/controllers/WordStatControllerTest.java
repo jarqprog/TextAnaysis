@@ -14,7 +14,6 @@ public class WordStatControllerTest extends TextAnalysisTest {
 
     private WordStatController controller;
     private final String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
-    private final String hugeFile = Path.RESOURCES_DIRECTORY.getPath() + "test_dickens_great.txt";
     private final String[] wordsToCalculateOccurrence = {"love", "hate", "music"};
 
     @Before
@@ -32,19 +31,6 @@ public class WordStatControllerTest extends TextAnalysisTest {
         assertNotNull(controller);
         assertNotNull(controller.getDataset());
         assertTrue(controller.getDataset() instanceof StatisticalAnalysis);
-    }
-
-    @Test
-    public void getInstanceWordStatControllerUsingHugeFile() throws IOException {
-
-        FileContent fileContent = new FileContent(hugeFile);
-        Iterator<String> iterator = fileContent.wordIterator();
-        StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
-        WordStatController bigDataController = WordStatController.getInstance(analysis);
-
-        assertNotNull(bigDataController);
-        assertNotNull(bigDataController.getDataset());
-        assertTrue(bigDataController.getDataset() instanceof StatisticalAnalysis);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -73,18 +59,6 @@ public class WordStatControllerTest extends TextAnalysisTest {
     }
 
     @Test
-    public void getDictSizeWithHugeText() throws IOException {
-
-        FileContent fileContent = new FileContent(hugeFile);
-        Iterator<String> iterator = fileContent.wordIterator();
-        StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
-        WordStatController bigDataController = WordStatController.getInstance(analysis);
-        String expected = "Dict size: 11678";
-
-        assertEquals(expected, bigDataController.getDictSize());
-    }
-
-    @Test
     public void getWordOccurrence() {
         String expected = "'love' count: 1\n" +
                 "'hate' count: 0\n" +
@@ -92,21 +66,6 @@ public class WordStatControllerTest extends TextAnalysisTest {
 
         assertEquals(
                 expected , controller.getWordOccurrence(wordsToCalculateOccurrence));
-    }
-
-    @Test
-    public void getWordOccurrenceFromHugeText() throws IOException {
-
-        FileContent fileContent = new FileContent(hugeFile);
-        Iterator<String> iterator = fileContent.wordIterator();
-        StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
-        WordStatController bigDataController = WordStatController.getInstance(analysis);
-        String expected = "'love' count: 53\n" +
-                "'hate' count: 4\n" +
-                "'music' count: 4";
-
-        assertEquals(
-                expected , bigDataController.getWordOccurrence(wordsToCalculateOccurrence));
     }
 
     @Test
@@ -125,18 +84,5 @@ public class WordStatControllerTest extends TextAnalysisTest {
 
         assertEquals(
                 expected , controller.getWordsQuantity());
-    }
-
-    @Test
-    public void getWordsQuantityFromHugeText() throws IOException {
-
-        FileContent fileContent = new FileContent(hugeFile);
-        Iterator<String> iterator = fileContent.wordIterator();
-        StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
-        WordStatController bigDataController = WordStatController.getInstance(analysis);
-        String expected = "Word count: 188917";
-
-        assertEquals(
-                expected , bigDataController.getWordsQuantity());
     }
 }

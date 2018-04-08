@@ -1,6 +1,5 @@
 package com.jarq.controllers;
 
-import com.jarq.enums.Path;
 import com.jarq.managers.FileWriterManager;
 import com.jarq.managers.WriterManager;
 import com.jarq.view.View;
@@ -29,7 +28,7 @@ public class Root {
     public void runApp() {
         Long startTime = System.currentTimeMillis();
 
-        performAnalyze();
+        performAnalysis();
 
         Double millisecondToSecondModifier = 0.001;
         Double benchmark = ((System.currentTimeMillis() - startTime)*millisecondToSecondModifier);
@@ -38,10 +37,9 @@ public class Root {
         writer.write(benchmarkInfo, true);
     }
 
-    private void performAnalyze() {
+    private void performAnalysis() {
         for(String filename : filenames) {
-            String filePath = Path.RESOURCES_DIRECTORY.getPath() + filename;
-            Result result = ResultController.getInstance(filePath);
+            Result result = ResultController.getInstance(filename);
             result.showResult();
             writer.write(result.getResult(), true);
         }

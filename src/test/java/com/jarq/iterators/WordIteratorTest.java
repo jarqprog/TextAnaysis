@@ -16,8 +16,9 @@ public class WordIteratorTest {
 
     @Before
     public void setIterator() {
+        String filename = Path.RESOURCES_DIRECTORY.getPath() + "test1.txt";
         try {
-            FileContent fileContent = new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test1.txt");
+            FileContent fileContent = new FileContent(filename);
             iterator = fileContent.wordIterator();
         } catch (IOException e) {
             e.printStackTrace();
@@ -34,8 +35,9 @@ public class WordIteratorTest {
 
     @Test
     public void testHasNext() throws IOException {
+        String filename = Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt";
 
-        FileContent fc = new FileContent(Path.RESOURCES_DIRECTORY.getPath() + "test_two_words.txt");
+        FileContent fc = new FileContent(filename);
         Iterator<String> it = new WordIterator(fc);
 
         it.next();
