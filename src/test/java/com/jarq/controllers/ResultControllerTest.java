@@ -1,13 +1,13 @@
 package com.jarq.controllers;
 
+import com.jarq.TextAnalysisTest;
 import com.jarq.enums.Path;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class ResultControllerTest {
+public class ResultControllerTest extends TextAnalysisTest {
 
     private final String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
     private Result resultController;
@@ -17,23 +17,16 @@ public class ResultControllerTest {
         resultController = ResultController.getInstance(filename);
     }
 
-    @After
-    public void tearDown() {
-        resultController = null;
-    }
-
     @Test
     public void getInstance() {
         assertNotNull(ResultController.getInstance(filename));
     }
 
     @Test
-    public void showResult() {
-    }
-
-    @Test
     public void getResult() {
-        String expected = "==" + Path.RESOURCES_DIRECTORY.getPath() + "test.txt==\n" +
+        String expected = "==" +
+                Path.RESOURCES_DIRECTORY.getPath() +
+                "test.txt==\n" +
                 "Char count: 1031\n" +
                 "Word count: 268\n" +
                 "Dict size: 147\n" +
@@ -48,6 +41,7 @@ public class ResultControllerTest {
                 "[i -> 5.63] [j -> 0.10] [k -> 0.58] [l -> 2.91] [m -> 2.62] [n -> 7.95] [o -> 7.37] \n" +
                 "[p -> 0.97] [q -> 0.10] [r -> 5.53] [s -> 6.11] [t -> 8.73] [u -> 3.01] [v -> 1.07] \n" +
                 "[w -> 3.78] [x -> 0.10] [y -> 1.26] \n";
+
         assertEquals(expected, resultController.getResult());
     }
 }

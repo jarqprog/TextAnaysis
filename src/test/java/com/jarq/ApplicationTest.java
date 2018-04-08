@@ -1,14 +1,10 @@
 package com.jarq;
 
 import com.jarq.controllers.Root;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.MethodRule;
-import org.junit.rules.TestWatchman;
-import org.junit.runners.model.FrameworkMethod;
 import static org.junit.Assert.*;
 
-public class ApplicationTest {
+public class ApplicationTest extends TextAnalysisTest {
 
     @Test
     public void testMain() {
@@ -17,11 +13,4 @@ public class ApplicationTest {
 
         assertNotNull(Root.getInstance(args));
     }
-
-    @Rule
-    public MethodRule watchman = new TestWatchman() {
-        public void starting(FrameworkMethod method) {
-            System.out.println("Starting test: " + method.getName());
-        }
-    };
 }

@@ -1,9 +1,9 @@
 package com.jarq.controllers;
 
+import com.jarq.TextAnalysisTest;
 import com.jarq.enums.Path;
 import com.jarq.model.FileContent;
 import com.jarq.model.StatisticalAnalysis;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,11 +12,10 @@ import java.util.Iterator;
 
 import static org.junit.Assert.*;
 
-public class CharStatControllerTest {
+public class CharStatControllerTest extends TextAnalysisTest {
 
     private CharStatController controller;
     private final String filename = Path.RESOURCES_DIRECTORY.getPath() + "test.txt";
-    private final String hugeFile = Path.RESOURCES_DIRECTORY.getPath() + "test_dickens_great.txt";
     private final String[] lettersToCalculateOccurrenceRatio = {"a", "e"};
 
     @Before
@@ -27,24 +26,11 @@ public class CharStatControllerTest {
         controller = CharStatController.getInstance(analysis);
     }
 
-    @After
-    public void tearDown() {
-        controller = null;
-    }
-
     @Test
-    public void getInstanceCharStatController() throws IOException {
-        assertNotNull(controller);
+    public void getInstanceCharStatController() {
         assertNotNull(controller);
         assertNotNull(controller.getDataset());
         assertTrue(controller.getDataset() instanceof StatisticalAnalysis);
-        FileContent fileContent = new FileContent(hugeFile);
-        Iterator<String> iterator = fileContent.charIterator();
-        StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
-        CharStatController bigDataController = CharStatController.getInstance(analysis);
-        assertNotNull(bigDataController);
-        assertNotNull(bigDataController.getDataset());
-        assertTrue(bigDataController.getDataset() instanceof StatisticalAnalysis);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -54,6 +40,7 @@ public class CharStatControllerTest {
         FileContent fileContent = new FileContent(filename);
         Iterator<String> iterator = fileContent.wordIterator();  // wordIterator - incorrect
         StatisticalAnalysis fakeAnalysis = new StatisticalAnalysis(iterator);
+
         CharStatController.getInstance(fakeAnalysis);
     }
 
@@ -75,23 +62,12 @@ public class CharStatControllerTest {
     }
 
     @Test
-    public void getPercentageVowelsOccurrence() throws IOException {
+    public void getPercentageVowelsOccurrence() {
         String expected = "vowels (percentage): 38.99";
 
         assertEquals(
                 expected,
                 controller.getPercentageVowelsOccurrence());
-
-        FileContent fileContent = new FileContent(hugeFile);
-        Iterator<String> iterator = fileContent.charIterator();
-        StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
-        CharStatController bigDataController = CharStatController.getInstance(analysis);
-
-        expected = "vowels (percentage): 38.16";
-
-        assertEquals(
-                expected,
-                bigDataController.getPercentageVowelsOccurrence());
     }
 
     @Test
@@ -112,21 +88,11 @@ public class CharStatControllerTest {
     }
 
     @Test
-    public void getCharsQuantity() throws IOException {
+    public void getCharsQuantity() {
         String expected = "Char count: 1031";
 
         assertEquals(
                 expected,
                 controller.getCharsQuantity());
-
-        FileContent fileContent = new FileContent(hugeFile);
-        Iterator<String> iterator = fileContent.charIterator();
-        StatisticalAnalysis analysis = new StatisticalAnalysis(iterator);
-        CharStatController bigDataController = CharStatController.getInstance(analysis);
-        expected = "Char count: 761672";
-
-        assertEquals(
-                expected,
-                bigDataController.getCharsQuantity());
     }
 }
